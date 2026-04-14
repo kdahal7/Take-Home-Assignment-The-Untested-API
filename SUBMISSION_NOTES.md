@@ -35,6 +35,16 @@ Coverage run (`npm run coverage`) reported:
 
 This meets the 80%+ target.
 
+## Live deployment behavior clarification
+
+- On a fresh deployment, GET /tasks can return an empty array ([]). This is expected.
+- Reason: this project uses an in-memory data store, so data is not persisted and resets on restart/redeploy.
+- To verify end-to-end behavior on live deployment:
+  1. POST /tasks with a valid payload to create a task.
+  2. GET /tasks to confirm it appears.
+  3. PATCH /tasks/:id/assign to confirm the new feature works.
+  4. GET /tasks/stats to confirm counts update correctly.
+
 ## What I would test next with more time
 
 1. Add explicit tests for malformed query params (for example negative/zero page and limit).
